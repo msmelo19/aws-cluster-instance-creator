@@ -35,7 +35,7 @@ class Pricing:
         )
 
         if not 'PriceList' in response:
-            return -1
+            return None
 
         # Extract price information
         try:
@@ -45,7 +45,7 @@ class Pricing:
             return float(instance_data[id1]['priceDimensions'][id2]['pricePerUnit']['USD'])
         
         except IndexError:
-            return -1
+            return None
 
     def get_spot_instance_price(self) -> float:
         ec2_client = boto3.client('ec2', region_name=self.region)
@@ -56,14 +56,14 @@ class Pricing:
         )
         
         if not 'SpotPriceHistory' in response:
-            return -1
+            return None
 
         try:
             spot_price = response['SpotPriceHistory'][0]['SpotPrice']
             return float(spot_price)
         
         except IndexError:
-            return -1
+            return None
 
 
         

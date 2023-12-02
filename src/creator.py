@@ -7,6 +7,7 @@ if __name__ == '__main__':
           Instance(name='c6a.12xlarge', makespan=779.6),
           Instance(name='c6in.12xlarge', makespan=826.1),
           Instance(name='r5n.12xlarge', makespan=1199.8),
+          Instance(name='hpc7a.12xlarge', makespan=480.8),
       ]
       num_checkpoints = 24
       avg_time_checkpoint = 3.88

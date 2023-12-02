@@ -17,12 +17,16 @@ class ClusterCreator:
         for region in self.regions:
             for instance in self.instances_initial_data:
                 pricing = Pricing(region, instance.name)
-                ondemand_data = Instance(instance.name, instance.makespan, pricing.get_ondemand_instance_price(), InstanceMarket.ONDEMAND, region)
-                spot_data = Instance(instance.name, instance.makespan, pricing.get_spot_instance_price(), InstanceMarket.SPOT, region)
-                spot_data = Instance(instance.name, instance.makespan, pricing.get_spot_instance_price(), InstanceMarket.SPOT, region)
                 
-                instances.append(ondemand_data)
-                instances.append(spot_data)
+                ondemand_pricing = pricing.get_ondemand_instance_price()
+                if ondemand_pricing:
+                    ondemand_data = Instance(instance.name, instance.makespan, ondemand_pricing, InstanceMarket.ONDEMAND, region)
+                    instances.append(ondemand_data)
+                    
+                spot_pricing = pricing.get_spot_instance_price()
+                if spot_pricing:
+                    spot_data = Instance(instance.name, instance.makespan, spot_pricing, InstanceMarket.SPOT, region)
+                    instances.append(spot_data)
         
         return instances
           
