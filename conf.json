@@ -1,0 +1,26 @@
+{
+  "regions": ["us-east-1", "us-east-2", "us-west-1", "us-west-2", "sa-east-1"],
+  "instances": [
+      {
+        "name": "c6a.12xlarge",
+        "makespan": 779.6
+      },
+      {
+        "name": "c6in.12xlarge",
+        "makespan": 826.1
+      },
+      {
+        "name": "r5n.12xlarge",
+        "makespan": 1199.8
+      },
+      {
+        "name": "hpc7a.12xlarge",
+        "makespan": 480.8,
+        "num_nodes": 2 
+      }
+  ],
+  "num_checkpoints": 24,
+  "avg_time_checkpoint": 3.88,
+  "num_nodes": 4
+
+}
