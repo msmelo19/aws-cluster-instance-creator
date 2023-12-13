@@ -41,15 +41,15 @@ class ClusterCreator:
         min_cost = self.__calc_makespan_cost(vm_best.cost, vm_best.makespan, vm_best.num_nodes)
 
         for instance in instances:
-            makespan_line = instance.makespan
+            estimated_makespan = instance.makespan
             
             if instance.market == InstanceMarket.SPOT:
                 time_checkpoints = self.num_checkpoints * self.avg_time_checkpoint
-                makespan_line = time_checkpoints + makespan_line
+                estimated_makespan = time_checkpoints + estimated_makespan
                 
-            if min_cost > self.__calc_makespan_cost(instance.cost, makespan_line, instance.num_nodes):
+            if min_cost > self.__calc_makespan_cost(instance.cost, estimated_makespan, instance.num_nodes):
                 vm_best = instance
-                min_cost = self.__calc_makespan_cost(instance.cost, makespan_line, instance.num_nodes)
+                min_cost = self.__calc_makespan_cost(instance.cost, estimated_makespan, instance.num_nodes)
                 
         return vm_best
     
