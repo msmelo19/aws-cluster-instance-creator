@@ -33,11 +33,13 @@ class ClusterCreator:
     def __calc_makespan_cost(self, cost: float, makespan: float, num_nodes: int = 1) -> float:
         return (cost * (makespan / 3600)) * num_nodes
           
-    def select_best_instance(self) -> Instance:
+    def select_best_instances(self) -> List[Instance]:
         instances = self.__create_intance_list()
         
         print('Choosing the best instance...')
         vm_best = instances[0]
+        vm_second_opt = None
+        vm_third_opt = None
         min_cost = self.__calc_makespan_cost(vm_best.cost, vm_best.makespan, vm_best.num_nodes)
 
         for instance in instances:
@@ -47,20 +49,29 @@ class ClusterCreator:
                 time_checkpoints = self.num_checkpoints * self.avg_time_checkpoint
                 estimated_makespan = time_checkpoints + estimated_makespan
                 
-            if min_cost > self.__calc_makespan_cost(instance.cost, estimated_makespan, instance.num_nodes):
-                vm_best = instance
-                min_cost = self.__calc_makespan_cost(instance.cost, estimated_makespan, instance.num_nodes)
+            instance_cost = self.__calc_makespan_cost(instance.cost, estimated_makespan, instance.num_nodes)
                 
-        return vm_best
+            print(f'Instance: {instance.name}')
+            print(f'Region: {instance.region}')
+            print(f'Market: {instance.market}')
+            print(f'Makespan: {estimated_makespan}')
+            print(f'Instance Price (USD/H): {instance.cost}')
+            print(f'Possible Cost: {instance_cost}')              
+            print('\n')
+                
+            if min_cost > instance_cost:
+                vm_third_opt = vm_second_opt
+                vm_second_opt = vm_best
+                vm_best = instance
+                min_cost = instance_cost
+
+        return [vm_best, vm_second_opt, vm_third_opt]
     
     def create_log(self, chosen_instance: Instance) -> None:
+        if not chosen_instance:
+            return
+
         print()
         print(f'Create a cluster in region: {chosen_instance.region}')
         print(f'Instance queue: {chosen_instance.name}')
         print(f'Use instance market: {chosen_instance.market}')
-        
-        if chosen_instance.market == InstanceMarket.SPOT:
-            print()
-            print(f'You will need to create more queues in your cluster')
-            print(f'Instance in 2nd queue: {chosen_instance.name}')
-            print(f'Use instance market: {InstanceMarket.ONDEMAND}')

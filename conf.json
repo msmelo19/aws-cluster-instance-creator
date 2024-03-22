@@ -6,8 +6,22 @@
         "makespan": 779.6
       },
       {
+        "name": "c6i.12xlarge",
+        "makespan": 835.8
+      },
+      {
         "name": "c6in.12xlarge",
         "makespan": 826.1
+      },
+
+      {
+        "name": "r6i.12xlarge",
+        "makespan": 854.6
+      },
+
+      {
+        "name": "r6a.12xlarge",
+        "makespan": 822.8
       },
       {
         "name": "r5n.12xlarge",
@@ -16,6 +30,11 @@
       {
         "name": "hpc7a.12xlarge",
         "makespan": 480.8,
+        "num_nodes": 4 
+      },
+      {
+        "name": "hpc7a.24xlarge",
+        "makespan": 485.5,
         "num_nodes": 2 
       }
   ],

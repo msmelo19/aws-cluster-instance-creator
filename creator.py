@@ -25,7 +25,7 @@ if __name__ == '__main__':
         instances_initial_data.append(instance)
             
     cluster_creator  = ClusterCreator(regions, instances_initial_data, num_checkpoints, avg_time_checkpoint)
-    instance = cluster_creator.select_best_instance()
     
-    cluster_creator.create_log(instance)
+    for selected_instance in cluster_creator.select_best_instances():    
+        cluster_creator.create_log(selected_instance)
 
